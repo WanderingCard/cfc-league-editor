@@ -9,6 +9,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [bowlGames, setBowlGames] = useState([]);
   const [conferences, setConferences] = useState([]);
+  const [conferenceNames, setConferenceNames] = useState([]);
   const [teams, setTeams] = useState([]);
 
   const handleFileChange = (event) => {
@@ -23,17 +24,30 @@ function App() {
       setErrorMessage('Error Reading File');
     }
 
-    if(selectedFile) {
+    if (selectedFile) {
       reader.readAsText(selectedFile)
     } else {
 
     }
+  };
+
+  function editBowlGame(i, gameInfo) {
+    var modifiedBowlArray = bowlGames;
+    modifiedBowlArray[i] = gameInfo;
+    setBowlGames(modifiedBowlArray)
   }
 
   useEffect(() => {
-    if(fileContent !== '') {
+    if (fileContent !== '') {
       var leagueJSON = JSON.parse(fileContent);
       setBowlGames(leagueJSON.bowlGames);
+      setConferences(leagueJSON.conferences);
+      var nameArray = [];
+      for (var i = 0; i<leagueJSON.conferences.length; i++) {
+        nameArray.push(leagueJSON.conferences[i].name);
+      }
+      setConferenceNames(nameArray);
+      console.log(nameArray);
     }
   }, [fileContent])
 
@@ -41,14 +55,17 @@ function App() {
 
   return (
     <div className="App">
-      <UploadButton 
+      <UploadButton
         fileType='.json'
         onChange={handleFileChange}
       />
       <div>
         <h3>Bowl Games Content</h3>
-        <BowlGamesTable 
+        <BowlGamesTable
           bowlGames={bowlGames}
+          setBowlGames = {setBowlGames}
+          conferenceNames={conferenceNames}
+          editSubmit={editBowlGame}
         />
         {/* <pre>{JSON.stringify(bowlGames, null, 2)}</pre> */}
       </div>
