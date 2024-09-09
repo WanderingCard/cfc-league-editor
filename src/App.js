@@ -3,6 +3,7 @@ import './App.css';
 import UploadButton from './Components/UploadButton';
 import { useEffect, useState } from 'react';
 import BowlGamesTable from './Components/BowlGamesTable';
+import { Button, ButtonGroup } from '@mui/material';
 
 function App() {
   const [fileContent, setFileContent] = useState('');
@@ -11,6 +12,7 @@ function App() {
   const [conferences, setConferences] = useState([]);
   const [conferenceNames, setConferenceNames] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [selectedCategory, setCategory] = useState('bowls')
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -51,7 +53,30 @@ function App() {
     }
   }, [fileContent])
 
-
+  function renderSection(selected) {
+    if(selected === 'bowls') {
+      return (
+        <div>
+          <h3>Bowl Games Content</h3>
+          <BowlGamesTable
+            bowlGames={bowlGames}
+            setBowlGames = {setBowlGames}
+            conferenceNames={conferenceNames}
+            editSubmit={editBowlGame}
+          />
+          {/* <pre>{JSON.stringify(bowlGames, null, 2)}</pre> */}
+        </div>
+      )
+    } else if (selected === 'conferences') {
+      <div>
+        Conferences
+      </div>
+    } else if (selected === 'teams') {
+      <div>
+        Teams
+      </div>
+    }
+  }
 
   return (
     <div className="App">
@@ -59,16 +84,13 @@ function App() {
         fileType='.json'
         onChange={handleFileChange}
       />
-      <div>
-        <h3>Bowl Games Content</h3>
-        <BowlGamesTable
-          bowlGames={bowlGames}
-          setBowlGames = {setBowlGames}
-          conferenceNames={conferenceNames}
-          editSubmit={editBowlGame}
-        />
-        {/* <pre>{JSON.stringify(bowlGames, null, 2)}</pre> */}
-      </div>
+      <br></br>
+      <ButtonGroup variant='contained' aria-label='Editor Category Select'>
+        <Button onClick={() => setCategory('bowls')}>Bowl Games</Button>
+        <Button onClick={() => setCategory('conferences')}>Conferences</Button>
+        <Button onClick={() => setCategory('teams')}>Teams</Button>
+      </ButtonGroup>
+      {renderSection(selectedCategory)}
     </div>
   );
 }
