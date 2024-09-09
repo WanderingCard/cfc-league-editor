@@ -2,8 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import UploadButton from './Components/UploadButton';
 import { useEffect, useState } from 'react';
-import BowlGamesTable from './Components/BowlGamesTable';
+import BowlGamesTable from './Components/Tables/BowlGamesTable';
 import { Button, ButtonGroup } from '@mui/material';
+import ConferencesTable from './Components/Tables/ConferencesTable';
+import TeamTable from './Components/Tables/TeamTable';
 
 function App() {
   const [fileContent, setFileContent] = useState('');
@@ -45,22 +47,39 @@ function App() {
       setBowlGames(leagueJSON.bowlGames);
       setConferences(leagueJSON.conferences);
       var nameArray = [];
-      for (var i = 0; i<leagueJSON.conferences.length; i++) {
+      var genteams = [];
+      for (var i = 0; i < leagueJSON.conferences.length; i++) {
         nameArray.push(leagueJSON.conferences[i].name);
+        genteams = genteams.concat(getTeamsFromConference(leagueJSON.conferences[i]))
+        console.log(getTeamsFromConference(leagueJSON.conferences[i]))
+        console.log(genteams);
       }
       setConferenceNames(nameArray);
+      setTeams(genteams);
       console.log(nameArray);
     }
   }, [fileContent])
 
+  function getTeamsFromConference(conference) {
+    var output = [];
+    for (var i=0; i < conference.divisions.length; i++) {
+      output = output.concat(conference.divisions[i].teams)
+    }
+    return output;
+  }
+
+  useEffect(() => {
+    console.log(teams);
+  }, [teams])
+
   function renderSection(selected) {
-    if(selected === 'bowls') {
+    if (selected === 'bowls') {
       return (
         <div>
-          <h3>Bowl Games Content</h3>
+          <h3>Bowl Games</h3>
           <BowlGamesTable
             bowlGames={bowlGames}
-            setBowlGames = {setBowlGames}
+            setBowlGames={setBowlGames}
             conferenceNames={conferenceNames}
             editSubmit={editBowlGame}
           />
@@ -68,13 +87,23 @@ function App() {
         </div>
       )
     } else if (selected === 'conferences') {
-      <div>
-        Conferences
-      </div>
+      return (
+        <div>
+          <h3>Conferences</h3>
+          <ConferencesTable
+            conferences={conferences}
+          />
+        </div>
+      )
     } else if (selected === 'teams') {
+      return (
       <div>
-        Teams
+        <h3>Teams</h3>
+        <TeamTable 
+          teams={teams}
+        />
       </div>
+      )
     }
   }
 

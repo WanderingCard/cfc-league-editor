@@ -1,7 +1,7 @@
 import { Delete, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import * as React from 'react';
-import BowlGameEditor from './Editors/BowlGameEditor';
+import BowlGameEditor from '../Editors/BowlGameEditor';
 
 export default function BowlGamesTable({ bowlGames, conferenceNames, editSubmit, setBowlGames }) {
     const [editorOpen, setEditorOpen] = React.useState(false);
@@ -34,8 +34,8 @@ export default function BowlGamesTable({ bowlGames, conferenceNames, editSubmit,
 
     return (
         <div>
-            <TableContainer sx={{ height: '75vh' }}>
-                <Table component={Paper} stickyHeader sx={{ maxWidth: '60vw', marginLeft: '20vw' }} >
+           <TableContainer sx={{ marginLeft: '20vw', height: '75vh', maxWidth: '60vw' }}>
+            <Table component={Paper} stickyHeader>
                     <TableHead sx={{ backgroundColor: 'lightgray' }}>
                         <TableCell>Game</TableCell>
                         <TableCell>Zip</TableCell>
