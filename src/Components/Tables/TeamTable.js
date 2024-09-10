@@ -1,8 +1,9 @@
 import { Delete, Edit, KeyboardArrowDown, KeyboardArrowUp, Square } from '@mui/icons-material';
 import { Box, Collapse, Grid2, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import * as React from 'react';
+import TeamEditor from '../Editors/TeamEditor';
 
-function Row({ team }) {
+function Row({ team, handleEditorClick }) {
     const [open, setOpen] = React.useState(false);
     return (
         <React.Fragment>
@@ -32,7 +33,9 @@ function Row({ team }) {
                 <TableCell>{team.attributes.totalLevels}</TableCell>
                 <TableCell>{team.rivalAbbreviation}</TableCell>
                 <TableCell>
-                    <IconButton>
+                    <IconButton
+                        onClick={() => handleEditorClick()}
+                    >
                         <Edit />
                     </IconButton>
                 </TableCell>
@@ -104,6 +107,14 @@ function Row({ team }) {
 }
 
 export default function TeamTable({ teams }) {
+    const [editorOpen, setEditorOpen] = React.useState(false);
+    const [editorIndex, setEditorIndex] = React.useState(-1);
+
+    function handleEditorClick(index) {
+        setEditorOpen(true);
+        setEditorIndex(index);
+    }
+
     return (
         <div>
             <TableContainer sx={{ marginLeft: '10vw', height: '75vh', maxWidth: '80vw', overflowX: 'scroll' }}>
@@ -123,49 +134,21 @@ export default function TeamTable({ teams }) {
                         <TableCell></TableCell>
                     </TableHead>
                     <TableBody component={Paper} sx={{ height: '300sp', overflowY: 'scroll' }}>
-                        {teams.map((team) => {
+                        {teams.map((team, i) => {
                             return (
-                                <Row key={team.name} team={team} />
-                                // <TableRow>
-                                //     <TableCell>{team.name}</TableCell>
-                                //     <TableCell>{team.mascot}</TableCell>
-                                //     <TableCell>{team.abbreviation}</TableCell>
-                                //     <TableCell>
-                                //         <Square style={{ color: team.primaryColor }} />
-                                //         {team.primaryColor}
-                                //     </TableCell>
-                                //     <TableCell>
-                                //         <Square style={{ color: team.secondaryColor }} />
-                                //         {team.secondaryColor}
-                                //     </TableCell>
-                                //     <TableCell>{team.zipcode}</TableCell>
-                                //     <TableCell>{team.attributes.prestige}</TableCell>
-                                //     <TableCell>{team.attributes.facilities}</TableCell>
-                                //     <TableCell>{team.attributes.stadium}</TableCell>
-                                //     <TableCell>{team.attributes.collegeLife}</TableCell>
-                                //     <TableCell>{team.attributes.academics}</TableCell>
-                                //     <TableCell>{team.attributes.marketing}</TableCell>
-                                //     <TableCell>{team.attributes.attendance}</TableCell>
-                                //     <TableCell>{team.attributes.fanbaseLevel}</TableCell>
-                                //     <TableCell>{team.archetype}</TableCell>
-                                //     <TableCell>{team.fanbaseType}</TableCell>
-                                //     <TableCell>{team.rivalAbbreviation}</TableCell>
-                                //     <TableCell>
-                                //         <IconButton>
-                                //             <Edit />
-                                //         </IconButton>
-                                //     </TableCell>
-                                //     <TableCell>
-                                //         <IconButton>
-                                //             <Delete />
-                                //         </IconButton>
-                                //     </TableCell>
-                                // </TableRow>
+                                <Row key={team.name} team={team} handleEditorClick={() => handleEditorClick(i)} />
                             )
                         })}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <TeamEditor 
+                open={editorOpen}
+                handleClose={() => setEditorOpen(false)}
+                teamInfo={editorIndex > -1 ? teams[editorIndex] : {}}
+                onSubmit={() => console.log('click')}
+                index={editorIndex}
+            />
         </div>
     )
 }

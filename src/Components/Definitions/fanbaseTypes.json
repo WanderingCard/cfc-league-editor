@@ -1,0 +1,18 @@
+{
+    "reasonable": {
+        "name": "Reasonable",
+        "description": "Enthusiasm changes at a normal rate"
+    },
+    "stubborn": {
+        "name": "Stubborn",
+        "description": "Enthusiasm changes more slowly"
+    },
+    "volatile": {
+        "name": "Volatile",
+        "description": "Enthusiasm changes more rapidly"
+    },
+    "ride-or-die": {
+        "name": "Ride or Die",
+        "description": "Enthusiasm increase faster when exceeding expectations, and lowers slower when missing expectations"
+    }
+}

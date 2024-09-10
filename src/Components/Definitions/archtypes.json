@@ -1,99 +1,99 @@
 {
     "balanced": {
         "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "stadium": 2,
+        "facilities": 2,
+        "collegeLife": 2,
+        "academics": 2,
+        "marketing": 2
     },
     "the-main-attraction": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "name": "The Main Attraction",
+        "stadium": 5,
+        "facilities": 1,
+        "collegeLife": 1,
+        "academics": 1,
+        "marketing": 2
 
     },
     "tradition-rich": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "name": "Tradition Rich",
+        "stadium": 4,
+        "facilities": 1,
+        "collegeLife": 3,
+        "academics": 1,
+        "marketing": 1
     }, 
     "football-focused": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
+        "name": "Football Focused",
+        "stadium": 3,
+        "facilities": 3,
+        "collegeLife": 2,
         "academics": 0,
-        "marketing": 0
+        "marketing": 2
     },
     "future-forward": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "name": "Future Forward",
+        "stadium": 1,
+        "facilities": 5,
+        "collegeLife": 1,
+        "academics": 1,
+        "marketing": 2
     },
-    "campus-treasure": {
+    "Campus Treasure": {
         "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
+        "stadium": 2,
+        "facilities": 4,
+        "collegeLife": 3,
+        "academics": 1,
         "marketing": 0
     },
     "football-second": {
-        "name": "Balanced",
+        "name": "Football Second",
         "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "facilities": 3,
+        "collegeLife": 1,
+        "academics": 2,
+        "marketing": 4
     },
     "party-school": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
+        "name": "Party School",
+        "stadium": 2,
+        "facilities": 1,
+        "collegeLife": 5,
         "academics": 0,
-        "marketing": 0
+        "marketing": 2
     }, 
     "football-agnostic": {
-        "name": "Balanced",
+        "name": "Football Agnostics",
         "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "facilities": 1,
+        "collegeLife": 3,
+        "academics": 3,
+        "marketing": 3
     },
     "media-mogul": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "name": "Media Mogul",
+        "stadium": 1,
+        "facilities": 1,
+        "collegeLife": 1,
+        "academics": 2,
+        "marketing": 5
     },
     "academic-powerhouse": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "name": "Academic Powerhouse",
+        "stadium": 1,
+        "facilities": 1,
+        "collegeLife": 1,
+        "academics": 5,
+        "marketing": 2
     },
     "academic-focused": {
-        "name": "Balanced",
-        "stadium": 0,
-        "facilities": 0,
-        "collegeLife": 0,
-        "academics": 0,
-        "marketing": 0
+        "name": "Academic Focused",
+        "stadium": 1,
+        "facilities": 2,
+        "collegeLife": 2,
+        "academics": 4,
+        "marketing": 1
     }
 }
