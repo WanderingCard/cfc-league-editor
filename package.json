@@ -1,6 +1,7 @@
 {
   "name": "cfc-league-editor",
   "version": "0.1.0",
+  "author": "Daniel S",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",

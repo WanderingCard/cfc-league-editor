@@ -117,8 +117,8 @@ export default function TeamTable({ teams }) {
 
     return (
         <div>
-            <TableContainer sx={{ marginLeft: '10vw', height: '75vh', maxWidth: '80vw', overflowX: 'scroll' }}>
-                <Table component={Paper} stickyHeader>
+            <TableContainer sx={{ marginLeft: '10vw', height: '75vh', maxWidth: '80vw', overflowX: 'scroll' }} component={Paper}>
+                <Table stickyHeader>
                     <TableHead sx={{ backgroundColor: 'lightgray'}}>
                         <TableCell style={{textAlign: 'center'}}></TableCell>
                         <TableCell style={{textAlign: 'center'}}>Abbreviation</TableCell>
