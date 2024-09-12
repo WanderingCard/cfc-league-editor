@@ -1,18 +1,22 @@
-{
-    "reasonable": {
+export const FANBASE_TYPES = [
+    {
+        "id": "reasonable",
         "name": "Reasonable",
         "description": "Enthusiasm changes at a normal rate"
     },
-    "stubborn": {
+    {
+        "id": "stubborn",
         "name": "Stubborn",
         "description": "Enthusiasm changes more slowly"
     },
-    "volatile": {
+    {
+        "id": "volatile",
         "name": "Volatile",
         "description": "Enthusiasm changes more rapidly"
     },
-    "ride-or-die": {
+    {
+        "id": "ride-or-die",
         "name": "Ride or Die",
         "description": "Enthusiasm increase faster when exceeding expectations, and lowers slower when missing expectations"
     }
-}
+]

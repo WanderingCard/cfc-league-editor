@@ -1,5 +1,6 @@
-{
-    "balanced": {
+export const ARCHETYPES = [
+    {
+        "id": 'balanced',
         "name": "Balanced",
         "stadium": 2,
         "facilities": 2,
@@ -7,7 +8,8 @@
         "academics": 2,
         "marketing": 2
     },
-    "the-main-attraction": {
+    {
+        "id": "the-main-attraction",
         "name": "The Main Attraction",
         "stadium": 5,
         "facilities": 1,
@@ -16,15 +18,17 @@
         "marketing": 2
 
     },
-    "tradition-rich": {
+    {
+        "id": "tradition-rich",
         "name": "Tradition Rich",
         "stadium": 4,
         "facilities": 1,
         "collegeLife": 3,
         "academics": 1,
         "marketing": 1
-    }, 
-    "football-focused": {
+    },
+    {
+        "id": "football-focused",
         "name": "Football Focused",
         "stadium": 3,
         "facilities": 3,
@@ -32,7 +36,8 @@
         "academics": 0,
         "marketing": 2
     },
-    "future-forward": {
+    {
+        "id": "future-forward",
         "name": "Future Forward",
         "stadium": 1,
         "facilities": 5,
@@ -40,7 +45,8 @@
         "academics": 1,
         "marketing": 2
     },
-    "Campus Treasure": {
+    {
+        "id": "Campus Treasure",
         "name": "Balanced",
         "stadium": 2,
         "facilities": 4,
@@ -48,7 +54,8 @@
         "academics": 1,
         "marketing": 0
     },
-    "football-second": {
+    {
+        "id": "football-second",
         "name": "Football Second",
         "stadium": 0,
         "facilities": 3,
@@ -56,15 +63,17 @@
         "academics": 2,
         "marketing": 4
     },
-    "party-school": {
+    {
+        "id": "party-school",
         "name": "Party School",
         "stadium": 2,
         "facilities": 1,
         "collegeLife": 5,
         "academics": 0,
         "marketing": 2
-    }, 
-    "football-agnostic": {
+    },
+    {
+        "id": "football-agnostic",
         "name": "Football Agnostics",
         "stadium": 0,
         "facilities": 1,
@@ -72,7 +81,8 @@
         "academics": 3,
         "marketing": 3
     },
-    "media-mogul": {
+    {
+        "id": "media-mogul",
         "name": "Media Mogul",
         "stadium": 1,
         "facilities": 1,
@@ -80,7 +90,8 @@
         "academics": 2,
         "marketing": 5
     },
-    "academic-powerhouse": {
+    {
+        "id": "academic-powerhouse",
         "name": "Academic Powerhouse",
         "stadium": 1,
         "facilities": 1,
@@ -88,7 +99,8 @@
         "academics": 5,
         "marketing": 2
     },
-    "academic-focused": {
+    {
+        "id": "academic-focused",
         "name": "Academic Focused",
         "stadium": 1,
         "facilities": 2,
@@ -96,4 +108,4 @@
         "academics": 4,
         "marketing": 1
     }
-}
+]

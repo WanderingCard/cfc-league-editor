@@ -10,12 +10,20 @@ const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export default function MySlider( {value, label, icon, handleChange, min, max, stepBy, name, handleBlur} ) {
+export default function MySlider( {value, label, icon, handleChange, min, max, stepBy, name, handleBlur, modifier} ) {
+
+  function generateLabel() {
+    if(modifier > 0) {
+      return `${label} (+${modifier}): ${value + modifier}`;
+    } else {
+      return `${label}: ${value + modifier}`;
+    }
+  }
 
   return (
     <Box>
       <Typography id="input-slider" gutterBottom>
-        {label}
+        {generateLabel()}
       </Typography>
       <Grid2 container spacing={3} sx={{ alignItems: 'center'}}>
         <Grid2 item size={2}>

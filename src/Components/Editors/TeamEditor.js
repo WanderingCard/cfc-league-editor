@@ -1,16 +1,16 @@
-import { Business, Celebration, Groups, PartyMode, School, Square, Stadium, Tv } from '@mui/icons-material';
-import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid2, InputLabel, MenuItem, Modal, OutlinedInput, Paper, Select, TextField, Typography, useAutocomplete } from '@mui/material';
+import { Business, Celebration, Groups, Money, PartyMode, School, Square, Stadium, Tv } from '@mui/icons-material';
+import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid2, InputLabel, Menu, MenuItem, Modal, OutlinedInput, Paper, Select, TextField, Typography, useAutocomplete } from '@mui/material';
 import * as React from 'react';
 import * as Zipcodes from 'zipcodes'
 import MySlider from '../Inputs/MySlider';
+import { ARCHETYPES } from '../Definitions/Archetypes';
 
 export default function TeamEditor({ open, handleClose, teamInfo, onSubmit, index }) {
     const [editValues, setEditValues] = React.useState({});
-    const [tieInOne, setTieInOne] = React.useState([]);
-    const [tieInTwo, setTieInTwo] = React.useState([]);
-
-    const [gameName, setName] = React.useState('');
-    const [gameZipCode, setZipCode] = React.useState('');
+    const [teamArchtype, setArchtype] = React.useState('');
+    const [fanbaseType, setFanbaseType] = React.useState('');
+    const [attendance, setAttendance] = React.useState(0)
+    const [locationError, setLocationError] = React.useState(false);
 
     const MenuProps = {
         PaperProps: {
@@ -62,19 +62,25 @@ export default function TeamEditor({ open, handleClose, teamInfo, onSubmit, inde
             max: 10,
             step: 1,
         },
-        // {
-        //     label: "Attendance",
-        //     value: 'attendance',
-        //     icon: <Groups />,
-        //     min: 1000,
-        //     max: 80000,
-        //     step: 1000,
-        // },
     ]
 
     React.useEffect(() => {
         setEditValues(teamInfo);
+        setArchtype(teamInfo.archetype);
+        setAttendance(teamInfo.attributes ? teamInfo.attributes.attendance : 0)
     }, [teamInfo]);
+
+    React.useEffect(() => {
+        setEditValues({
+            ...editValues,
+            "fanbaseType": fanbaseType,
+            "archetype": teamArchtype,
+            "attributes": {
+                ...editValues.attributes,
+                "attendance": attendance,
+            }
+        })
+    }, [fanbaseType, teamArchtype, attendance])
 
     const handleChange = (e) => {
         setEditValues({
@@ -88,7 +94,7 @@ export default function TeamEditor({ open, handleClose, teamInfo, onSubmit, inde
             ...editValues,
             "attributes": {
                 ...editValues.attributes,
-                [e.target.name]: (e.target.value).toString()
+                [e.target.name]: e.target.value
             }
         })
     }
@@ -98,18 +104,23 @@ export default function TeamEditor({ open, handleClose, teamInfo, onSubmit, inde
             ...editValues,
             "attributes": {
                 ...editValues.attributes,
-                [attribute]: (newValue).toString()
+                [attribute]: newValue
             }
         })
     }
 
     function getLocationName(zipcode) {
         var output = '';
+        if (zipcode.length < 5)
+            return ""
+        else if (zipcode.length > 5) {
+            return "Invalid Zipcode"
+        }
         var locationObject = Zipcodes.lookup(zipcode);
         if (locationObject)
             output = locationObject.city + ", " + locationObject.state;
         else
-            return "Pending"
+            return "Not Found"
         return output
     }
 
@@ -129,10 +140,10 @@ export default function TeamEditor({ open, handleClose, teamInfo, onSubmit, inde
             maxWidth='md'
         >
             <DialogTitle>Edit {teamInfo.name || 'Add New Team'}</DialogTitle>
-            <DialogContent sx={{ marginTop: '5px', overflow: 'initial' }}>
+            <DialogContent sx={{ marginTop: '5px', overflowY: 'scroll' }}>
                 <Grid2 container spacing={3} component={Paper} padding={'10px'}>
                     <Grid2 item size={12}>
-                        <Typography variant='h5'>General Team Info</Typography>
+                        <Typography variant='h5' style={{ backgroundColor: 'lightblue', padding: '10px' }}>General Team Info</Typography>
                     </Grid2>
                     <Grid2 item size={4}>
                         <TextField
@@ -222,48 +233,101 @@ export default function TeamEditor({ open, handleClose, teamInfo, onSubmit, inde
                             fullWidth
                         />
                     </Grid2>
+                    <Grid2 item size={4}>
+                        <FormControl fullWidth>
+                            <InputLabel id='attendance-label'>Attendance</InputLabel>
+                            <Select
+                                label='attendance'
+                                name='attendance'
+                                value={attendance}
+                                onChange={(event) => setAttendance(event.target.value)}
+                                fullWidth
+                                MenuProps={MenuProps}
+                            >
+                                {[...Array(80)].map((_, i) => (
+                                    <MenuItem key={(i + 1) * 1000} value={(i + 1) * 1000}>
+                                        {(i + 1) * 1000}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid2>
                 </Grid2>
                 <Paper style={{ width: '98%', padding: '10px', marginTop: '10px' }}>
-                    <Typography variant='h5' marginBottom={'10px'}>Team Attributes</Typography>
-                    <Paper style={{ width: '90%', padding: '10px' }}>
-                        <Grid2 container spacing={2}>
-                            {/* <Grid2 item size={6}>
-                                <MySlider
-                                    value={editValues.attributes ? editValues.attributes.stadium : 0}
-                                    label='Stadium'
-                                    icon={<Stadium />}
-                                    min={1}
-                                    max={10}
-                                    stepBy={1}
-                                    name={'stadium'}
-                                    handleChange={(event) => handleAttributeChange(event)}
-                                    handleBlur={() => handleBlur('stadium')}
-                                />
-                            </Grid2> */}
-                            {attributes.map((i) => (
+                    <Typography variant='h5' marginBottom={'10px'} style={{ backgroundColor: 'lightblue', padding: '10px' }}>Team Attributes</Typography>
+                    <Box style={{ width: '90%', padding: '10px' }}>
+                            <Grid2 container spacing={2}>
                                 <Grid2 item size={6}>
-                                    <MySlider
-                                        value={editValues.attributes ? editValues.attributes[i.value] : 0}
-                                        label={i.label}
-                                        icon={i.icon}
-                                        min={i.min}
-                                        max={i.max}
-                                        stepBy={i.step}
-                                        name={i.value}
-                                        handleChange={(event) => handleAttributeChange(event)}
-                                        handleBlur={() => handleBlur(i.value)}
-                                    />
+                                <FormControl fullWidth>
+                                    <InputLabel id='archetype'>Archetype</InputLabel>
+                                    <Select
+                                        labelId='archetype'
+                                        id='archetype'
+                                        label='Archetype '
+                                        value={teamArchtype || ''}
+                                        onChange={(event) => {
+                                            setArchtype(event.target.value);
+                                        }}
+                                        fullWidth
+                                        MenuProps={MenuProps}
+                                    >
+                                        {ARCHETYPES.map((arc) => (
+                                            <MenuItem key={arc.id} value={arc.id}>
+                                                {arc.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    </FormControl>
                                 </Grid2>
-                            ))}
-                        </Grid2>
-                    </Paper>
+                                {attributes.map((i) => (
+                                    <Grid2 item size={6}>
+                                        <MySlider
+                                            value={editValues.attributes ? editValues.attributes[i.value] : 0}
+                                            label={i.label}
+                                            icon={i.icon}
+                                            min={i.min}
+                                            max={i.max}
+                                            stepBy={i.step}
+                                            name={i.value}
+                                            handleChange={(event) => handleAttributeChange(event)}
+                                            handleBlur={() => handleBlur(i.value)}
+                                            modifier={(teamArchtype && teamArchtype !== '') ? ARCHETYPES[ARCHETYPES.findIndex(x => x.id === teamArchtype)][i.value] : 0}
+                                        />
+                                    </Grid2>
+                                ))}
+                                <Grid2 item size={6}>
+                                    Fanbase Rating
+                                </Grid2>
+                                <Grid2 item size={6}>
+                                    <FormControl fullWidth>
+                                    <InputLabel id='fanbaseType-id'>Fanbase Type</InputLabel>
+                                    <Select
+                                        labelId='fanbaseType-id'
+                                        id='fanbaseType'
+                                        label='Fanbase Type'
+                                        value={teamArchtype || ''}
+                                        onChange={(event) => {
+                                            setArchtype(event.target.value);
+                                        }}
+                                        fullWidth
+                                        MenuProps={MenuProps}
+                                    >
+                                        {ARCHETYPES.map((arc) => (
+                                            <MenuItem key={arc.id} value={arc.id}>
+                                                {arc.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    </FormControl>
+                                </Grid2>
+                            </Grid2>
+                    </Box>
                 </Paper>
             </DialogContent>
             <DialogActions>
                 <Button
                     variant='contained'
                     type='submit'
-
                     onClick={onSubmit ? () => {
                         onSubmit(index, editValues)
                         handleClose()
