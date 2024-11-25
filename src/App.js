@@ -6,6 +6,7 @@ import BowlGamesTable from './Components/Tables/BowlGamesTable';
 import { Button, ButtonGroup } from '@mui/material';
 import ConferencesTable from './Components/Tables/ConferencesTable';
 import TeamTable from './Components/Tables/TeamTable';
+import RivarlyTable from './Components/Tables/RivarliesTable';
 
 function App() {
   const [fileContent, setFileContent] = useState('');
@@ -13,8 +14,10 @@ function App() {
   const [bowlGames, setBowlGames] = useState([]);
   const [conferences, setConferences] = useState([]);
   const [conferenceNames, setConferenceNames] = useState([]);
+  const [teamNames, setTeamNames] = useState([]);
   const [teams, setTeams] = useState([]);
   const [selectedCategory, setCategory] = useState('bowls')
+  const [rivarlies, setRivarlies] = useState([]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -46,6 +49,7 @@ function App() {
       var leagueJSON = JSON.parse(fileContent);
       setBowlGames(leagueJSON.bowlGames);
       setConferences(leagueJSON.conferences);
+      setRivarlies(leagueJSON.oocRivalries);
       var nameArray = [];
       var genteams = [];
       for (var i = 0; i < leagueJSON.conferences.length; i++) {
@@ -57,6 +61,7 @@ function App() {
       setConferenceNames(nameArray);
       setTeams(genteams);
       console.log(nameArray);
+      window.sessionStorage.setItem("Teams", JSON.stringify(genteams));
     }
   }, [fileContent])
 
@@ -104,6 +109,15 @@ function App() {
         />
       </div>
       )
+    } else if (selected === 'rivarlies') {
+      return(
+        <div>
+          <h3>Rivarlies</h3>
+          <RivarlyTable
+            rivarlies={rivarlies}
+          />
+        </div>
+      )
     }
   }
 
@@ -118,6 +132,7 @@ function App() {
         <Button onClick={() => setCategory('bowls')}>Bowl Games</Button>
         <Button onClick={() => setCategory('conferences')}>Conferences</Button>
         <Button onClick={() => setCategory('teams')}>Teams</Button>
+        <Button onClick={() => setCategory('rivarlies')}>Rivarlies</Button>
       </ButtonGroup>
       {renderSection(selectedCategory)}
     </div>
