@@ -2,6 +2,7 @@ import { Delete, Edit, KeyboardArrowDown, KeyboardArrowUp, Square } from '@mui/i
 import { Box, Collapse, Grid2, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import * as React from 'react';
 import TeamEditor from '../Editors/TeamEditor';
+import ColorLabel from '../Display/ColorLabel';
 
 function Row({ team, handleEditorClick }) {
     const [open, setOpen] = React.useState(false);
@@ -20,13 +21,11 @@ function Row({ team, handleEditorClick }) {
                 <TableCell>{team.abbreviation}</TableCell>
                 <TableCell>{team.name}</TableCell>
                 <TableCell>{team.mascot}</TableCell>
-                <TableCell style={{alignContent: 'center', width: '10%'}}>
-                    <Square style={{ color: team.primaryColor, paddingRight: '10px' }}/>
-                    <Typography variant='p'>{team.primaryColor}</Typography>
+                <TableCell style={{alignContent: 'center', width: '10%', justifyContent:'center'}}>
+                    <ColorLabel colorCode={team.primaryColor} />
                 </TableCell>
                 <TableCell style={{alignContent: 'center', width: '10%'}}>
-                    <Square style={{ color: team.secondaryColor, paddingRight: '10px'  }} />
-                    {team.secondaryColor}
+                    <ColorLabel colorCode={team.secondaryColor} />
                 </TableCell>
                 <TableCell>{team.zipcode}</TableCell>
                 <TableCell>{team.attributes.prestige}</TableCell>

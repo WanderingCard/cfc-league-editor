@@ -44,6 +44,9 @@ export default function BowlGameEditor({ open, handleClose, gameInfo, onSubmit, 
                 setTieInTwo([]);
             }
             console.log(tieInOne, tieInTwo);
+        } else {
+            setTieInOne([]);
+            setTieInTwo([]);
         }
     }, [gameInfo]);
 

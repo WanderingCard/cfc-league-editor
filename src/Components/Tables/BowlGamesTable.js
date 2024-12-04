@@ -41,8 +41,9 @@ export default function BowlGamesTable({ bowlGames, conferenceNames, editSubmit,
                         <TableCell>Zip</TableCell>
                         <TableCell>First Tie In</TableCell>
                         <TableCell>Second Tie In</TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
+                        <TableCell colSpan={2}>
+                            <Button variant='contained'>Add New Bowl</Button>
+                        </TableCell>
                     </TableHead>
                     <TableBody component={Paper} sx={{ height: '300sp', overflowY: 'scroll' }}>
                         {bowlGames.map((game, i) => {

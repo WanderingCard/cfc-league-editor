@@ -67,7 +67,7 @@ function App() {
 
   function getTeamsFromConference(conference) {
     var output = [];
-    for (var i=0; i < conference.divisions.length; i++) {
+    for (var i = 0; i < conference.divisions.length; i++) {
       output = output.concat(conference.divisions[i].teams)
     }
     return output;
@@ -102,15 +102,15 @@ function App() {
       )
     } else if (selected === 'teams') {
       return (
-      <div>
-        <h3>Teams</h3>
-        <TeamTable 
-          teams={teams}
-        />
-      </div>
+        <div>
+          <h3>Teams</h3>
+          <TeamTable
+            teams={teams}
+          />
+        </div>
       )
     } else if (selected === 'rivarlies') {
-      return(
+      return (
         <div>
           <h3>Rivarlies</h3>
           <RivarlyTable
@@ -122,17 +122,45 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={{ paddingTop: '10px' }}>
       <UploadButton
         fileType='.json'
         onChange={handleFileChange}
       />
       <br></br>
-      <ButtonGroup variant='contained' aria-label='Editor Category Select'>
-        <Button onClick={() => setCategory('bowls')}>Bowl Games</Button>
-        <Button onClick={() => setCategory('conferences')}>Conferences</Button>
-        <Button onClick={() => setCategory('teams')}>Teams</Button>
-        <Button onClick={() => setCategory('rivarlies')}>Rivarlies</Button>
+      <ButtonGroup variant='contained' aria-label='Editor Category Select' style={{ marginTop: '5px' }}>
+        <Button
+          sx={{
+            backgroundColor: selectedCategory==='bowls' ? '#1623b8' : 'primary'
+          }}
+          onClick={() => setCategory('bowls')}
+        >
+          Bowl Games
+        </Button>
+        <Button
+          sx={{
+            backgroundColor: selectedCategory==='conferences' ? '#1623b8' : 'primary'
+          }}
+          onClick={() => setCategory('conferences')}
+        >
+          Conferences
+        </Button>
+        <Button
+          sx={{
+            backgroundColor: selectedCategory==='teams' ? '#1623b8' : 'primary'
+          }}
+          onClick={() => setCategory('teams')}
+        >
+          Teams
+        </Button>
+        <Button
+          sx={{
+            backgroundColor: selectedCategory==='rivarlies' ? '#1623b8' : 'primary'
+          }}
+          onClick={() => setCategory('rivarlies')}
+        >
+          Rivarlies
+        </Button>
       </ButtonGroup>
       {renderSection(selectedCategory)}
     </div>

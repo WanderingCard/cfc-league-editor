@@ -25,7 +25,11 @@ export default function RivarlyGameEditor({ open, handleClose, gameInfo, onSubmi
         setTeamB(gameInfo.teamB);
         setScheduleSlot(gameInfo.preferredSlot);
         setCadence(gameInfo.cadence);
-        setTeams(JSON.parse(window.sessionStorage.getItem('Teams')))
+        let teamList = JSON.parse(window.sessionStorage.getItem('Teams'));
+        if (teamList !== null)
+            setTeams(JSON.parse(window.sessionStorage.getItem('Teams')));
+        else
+            setTeams([]);
     }, [gameInfo]);
 
     React.useEffect(() => {
@@ -69,7 +73,7 @@ export default function RivarlyGameEditor({ open, handleClose, gameInfo, onSubmi
                             fullWidth
                             MenuProps={MenuProps}
                         >
-                            {teams.length !== 0 && teams.map((team, i) => (
+                            {(teams.length !== 0) && teams.map((team, i) => (
                                 <MenuItem key={team.abbreviation} value={team.abbreviation}>
                                     {team.name + " " + team.mascot + "(" + team.abbreviation + ")"}
                                 </MenuItem>
