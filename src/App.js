@@ -7,6 +7,7 @@ import { Button, ButtonGroup } from '@mui/material';
 import ConferencesTable from './Components/Tables/ConferencesTable';
 import TeamTable from './Components/Tables/TeamTable';
 import RivarlyTable from './Components/Tables/RivarliesTable';
+import {getStoredData, initBowls, initConferences, initRivarlies, initTeams} from './localstorage'
 
 function App() {
   const [fileContent, setFileContent] = useState('');
@@ -16,7 +17,8 @@ function App() {
   const [conferenceNames, setConferenceNames] = useState([]);
   const [teamNames, setTeamNames] = useState([]);
   const [teams, setTeams] = useState([]);
-  const [selectedCategory, setCategory] = useState('bowls')
+  const [selectedCategory, setCategory] = useState('bowls');
+  // const [selectedCategory, setCategory] = useState('summary');
   const [rivarlies, setRivarlies] = useState([]);
 
   const handleFileChange = (event) => {
@@ -47,21 +49,27 @@ function App() {
   useEffect(() => {
     if (fileContent !== '') {
       var leagueJSON = JSON.parse(fileContent);
-      setBowlGames(leagueJSON.bowlGames);
+      setBowlGames(leagueJSON.bowlGames); 
+      initBowls(leagueJSON.bowlGames);
       setConferences(leagueJSON.conferences);
+      initConferences(leagueJSON.conferences);
       setRivarlies(leagueJSON.oocRivalries);
+      initRivarlies(leagueJSON.oocRivalries);
       var nameArray = [];
       var genteams = [];
       for (var i = 0; i < leagueJSON.conferences.length; i++) {
         nameArray.push(leagueJSON.conferences[i].name);
         genteams = genteams.concat(getTeamsFromConference(leagueJSON.conferences[i]))
         console.log(getTeamsFromConference(leagueJSON.conferences[i]))
+        genteams.sort((a, b) => a.name.localeCompare(b.name))
         console.log(genteams);
       }
       setConferenceNames(nameArray);
       setTeams(genteams);
       console.log(nameArray);
-      window.sessionStorage.setItem("Teams", JSON.stringify(genteams));
+      initTeams(genteams);
+      console.log(getStoredData("Teams"))
+      
     }
   }, [fileContent])
 

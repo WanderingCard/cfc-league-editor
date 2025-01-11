@@ -60,7 +60,7 @@ export default function RivarlyGameEditor({ open, handleClose, gameInfo, onSubmi
         >
             <DialogTitle>Edit Rivarly Game</DialogTitle>
             <DialogContent sx={{ marginTop: '5px', overflow: 'initial' }}>
-                <Grid2 container spacing={2}>
+                <Grid2 container spacing={2} sx={{width: '500px'}}>
                     <Grid2 item size={6}>
                         <InputLabel id='teamAId'>Team One</InputLabel>
                         <Select
