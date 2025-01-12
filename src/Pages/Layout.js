@@ -37,7 +37,7 @@ export default function Layout() {
         <NavBar 
             options={navOptions}
         />
-        <main>
+        <main style={{flexGrow: 1, padding: "16px"}}>
             <Outlet />
         </main>
     </div>

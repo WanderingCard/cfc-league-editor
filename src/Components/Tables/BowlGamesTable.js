@@ -34,8 +34,8 @@ export default function BowlGamesTable({ bowlGames, conferenceNames, editSubmit,
 
     return (
         <div>
-           <TableContainer sx={{ marginLeft: '20vw', height: '75vh', maxWidth: '60vw' }}>
-            <Table component={Paper} stickyHeader>
+           <TableContainer sx={{ maxWidth:'85vw'}} component={Paper}>
+            <Table stickyHeader>
                     <TableHead sx={{ backgroundColor: 'lightgray' }}>
                         <TableCell>Game</TableCell>
                         <TableCell>Zip</TableCell>

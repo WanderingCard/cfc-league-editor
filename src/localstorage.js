@@ -16,9 +16,18 @@ export function initRivarlies(rivData) {
 
 export function getStoredData(dataType) {
     if(dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
-        return window.sessionStorage.getItem(dataType);
+        var data = window.sessionStorage.getItem(dataType);
+        if(data)
+            return JSON.parse(window.sessionStorage.getItem(dataType));
+        return [];
     } else {
         return [];
+    }
+}
+
+export function storeData(dataType, data) {
+    if(dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
+        window.sessionStorage.setItem(dataType, JSON.stringify(data))
     }
 }
 

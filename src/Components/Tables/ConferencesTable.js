@@ -1,5 +1,5 @@
 import { ArrowForward, Cancel, Delete, Edit, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import { Box, Collapse, Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Collapse, Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@mui/material';
 import * as React from 'react';
 
 function getConferenceFormat(conference) {
@@ -61,12 +61,12 @@ function Row({ conference }) {
                             </Typography>
                             {conference.divisions.map((division) => (
                                 <>
-                                    {conference.divisions.length > 1 && 
-                                    <Typography variant='h6' style={{justifyContent: 'center', paddingTop: '20px', paddingBottom: '20px'}}>
-                                        {conference.divisions.length === 2 ? `${division.name} Division` : `${division.name} Pod`}
-                                    </Typography> }
-                                    <Table size='small' aria-label={`${division.name} team table`} style={{ }}>
-                                        <TableHead style={{backgroundColor: 'lightgray'}}>
+                                    {conference.divisions.length > 1 &&
+                                        <Typography variant='h6' style={{ justifyContent: 'center', paddingTop: '20px', paddingBottom: '20px' }}>
+                                            {conference.divisions.length === 2 ? `${division.name} Division` : `${division.name} Pod`}
+                                        </Typography>}
+                                    <Table size='small' aria-label={`${division.name} team table`} style={{}}>
+                                        <TableHead style={{ backgroundColor: 'lightgray' }}>
                                             <TableRow>
                                                 <TableCell>Abbrev.</TableCell>
                                                 <TableCell>Team</TableCell>
@@ -85,14 +85,18 @@ function Row({ conference }) {
                                                     <TableCell>{team.attributes.prestige}</TableCell>
                                                     <TableCell>{team.rivalAbbreviation}</TableCell>
                                                     <TableCell>
-                                                        <IconButton>
-                                                            <Cancel />
-                                                        </IconButton>
+                                                        <Tooltip title='Remove Team'>
+                                                            <IconButton>
+                                                                <Cancel />
+                                                            </IconButton>
+                                                        </Tooltip>
                                                     </TableCell>
                                                     <TableCell>
-                                                        <IconButton>
-                                                            <ArrowForward />
-                                                        </IconButton>
+                                                        <Tooltip title='Move Team'>
+                                                            <IconButton>
+                                                                <ArrowForward />
+                                                            </IconButton>
+                                                        </Tooltip>
                                                     </TableCell>
                                                 </TableRow>
                                             ))}
@@ -111,8 +115,8 @@ function Row({ conference }) {
 export default function ConferencesTable({ conferences }) {
     return (
         <div>
-            <TableContainer sx={{ marginLeft: '20vw', height: '75vh', maxWidth: '60vw' }}>
-                <Table component={Paper} stickyHeader>
+            <TableContainer sx={{ maxWidth: '80vw' }} component={Paper}>
+                <Table stickyHeader>
                     <TableHead sx={{ backgroundColor: 'lightgray' }}>
                         <TableCell></TableCell>
                         <TableCell>Conference</TableCell>

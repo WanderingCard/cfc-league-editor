@@ -50,8 +50,8 @@ export default function RivarlyTable({rivarlies, editSubmit, setRivarlies}) {
 
     return (
         <div>
-           <TableContainer sx={{ marginLeft: '20vw', height: '75vh', maxWidth: '60vw' }}>
-            <Table component={Paper} stickyHeader>
+           <TableContainer sx={{ maxWidth: '80vw' }} component={Paper}>
+            <Table stickyHeader>
                     <TableHead sx={{ backgroundColor: 'lightgray' }}>
                         <TableCell>Team One</TableCell>
                         <TableCell>Team Two</TableCell>

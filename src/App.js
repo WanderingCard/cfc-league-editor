@@ -10,6 +10,10 @@ import RivarlyTable from './Components/Tables/RivarliesTable';
 import {getStoredData, initBowls, initConferences, initRivarlies, initTeams} from './localstorage'
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Pages/Layout';
+import BowlGames from './Pages/BowlsGames';
+import Teams from './Pages/Teams';
+import Conferences from './Pages/Conferences';
+import Rivarlies from './Pages/Rivarlies';
 
 function App() {
   const [fileContent, setFileContent] = useState('');
@@ -136,10 +140,12 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index  element={<UploadButton
         fileType='.json'
+        label={"Upload Universe File"}
         onChange={handleFileChange}
       />}/>
-        <Route path='teams' element={ <TeamTable teams={teams}/> } />
-        <Route 
+        {/* <Route path='teams' element={ <TeamTable teams={teams}/> } /> */}
+        <Route path='teams' element={<Teams />} />
+        {/* <Route 
           path='bowls' 
           element= { 
             <BowlGamesTable 
@@ -149,9 +155,12 @@ function App() {
               editSubmit={editBowlGame} 
             />
           } 
-        />
-        <Route path='conferences' element={ <ConferencesTable conferences={conferences} />} />
-        <Route path='rivarlies' element={ <RivarlyTable rivarlies={rivarlies} /> } />
+        /> */}
+        <Route path='bowls' element={<BowlGames />} />
+        {/* <Route path='conferences' element={ <ConferencesTable conferences={conferences} />} /> */}
+        <Route path='conferences' element={<Conferences />} />
+        {/* <Route path='rivarlies' element={ <RivarlyTable rivarlies={rivarlies} /> } /> */}
+        <Route path='rivarlies' element={<Rivarlies />} />
       </Route>
     </Routes>
   );
