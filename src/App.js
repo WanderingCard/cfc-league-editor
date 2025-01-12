@@ -8,6 +8,8 @@ import ConferencesTable from './Components/Tables/ConferencesTable';
 import TeamTable from './Components/Tables/TeamTable';
 import RivarlyTable from './Components/Tables/RivarliesTable';
 import {getStoredData, initBowls, initConferences, initRivarlies, initTeams} from './localstorage'
+import { Route, Routes } from 'react-router-dom';
+import Layout from './Pages/Layout';
 
 function App() {
   const [fileContent, setFileContent] = useState('');
@@ -130,48 +132,28 @@ function App() {
   }
 
   return (
-    <div className="App" style={{ paddingTop: '10px' }}>
-      <UploadButton
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index  element={<UploadButton
         fileType='.json'
         onChange={handleFileChange}
-      />
-      <br></br>
-      <ButtonGroup variant='contained' aria-label='Editor Category Select' style={{ marginTop: '5px' }}>
-        <Button
-          sx={{
-            backgroundColor: selectedCategory==='bowls' ? '#1623b8' : 'primary'
-          }}
-          onClick={() => setCategory('bowls')}
-        >
-          Bowl Games
-        </Button>
-        <Button
-          sx={{
-            backgroundColor: selectedCategory==='conferences' ? '#1623b8' : 'primary'
-          }}
-          onClick={() => setCategory('conferences')}
-        >
-          Conferences
-        </Button>
-        <Button
-          sx={{
-            backgroundColor: selectedCategory==='teams' ? '#1623b8' : 'primary'
-          }}
-          onClick={() => setCategory('teams')}
-        >
-          Teams
-        </Button>
-        <Button
-          sx={{
-            backgroundColor: selectedCategory==='rivarlies' ? '#1623b8' : 'primary'
-          }}
-          onClick={() => setCategory('rivarlies')}
-        >
-          Rivarlies
-        </Button>
-      </ButtonGroup>
-      {renderSection(selectedCategory)}
-    </div>
+      />}/>
+        <Route path='teams' element={ <TeamTable teams={teams}/> } />
+        <Route 
+          path='bowls' 
+          element= { 
+            <BowlGamesTable 
+              bowlGames={bowlGames}
+              setBowlGames={setBowlGames}
+              conferenceNames={conferenceNames}
+              editSubmit={editBowlGame} 
+            />
+          } 
+        />
+        <Route path='conferences' element={ <ConferencesTable conferences={conferences} />} />
+        <Route path='rivarlies' element={ <RivarlyTable rivarlies={rivarlies} /> } />
+      </Route>
+    </Routes>
   );
 }
 
