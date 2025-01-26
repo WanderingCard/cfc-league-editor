@@ -95,6 +95,10 @@ function Row({ team, handleEditorClick }) {
                                         <TableCell>FanbaseType</TableCell>
                                         <TableCell>{team.fanbaseType}</TableCell>
                                     </TableRow>
+                                    <TableRow>
+                                        <TableCell>Conference</TableCell>
+                                        <TableCell>{team.conference}</TableCell>
+                                    </TableRow>
                                 </TableBody>
                             </Table>
                         </Box>

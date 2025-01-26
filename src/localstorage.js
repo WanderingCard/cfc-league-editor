@@ -1,5 +1,37 @@
+export function loadData(fileContent) {
+    var leagueJSON = JSON.parse(fileContent);
+
+    initBowls(leagueJSON.bowlGames);
+    initConferences(leagueJSON.conferences);
+    initRivarlies(leagueJSON.oocRivalries);
+
+    var genTeams = [];
+    for (var i = 0; i < leagueJSON.conferences.length; i++) {
+        genTeams = genTeams.concat(getTeamsFromConference(leagueJSON.conferences[i]));
+    }
+    genTeams.sort((a, b) => a.name.localeCompare(b.name));
+    initTeams(genTeams);
+}
+
+function getTeamsFromConference(conference) {
+    var output = [];
+    for (var i = 0; i < conference.divisions.length; i++) {
+        var divisionTeams = []
+        for (var j=0; j < conference.divisions[i].teams.length; j++) {
+            var teamData = conference.divisions[i].teams[j];
+            teamData.conference = conference.name;
+            divisionTeams.push(teamData);
+        }
+        output = output.concat(divisionTeams);
+    }
+    return output;
+}
+
 export function initTeams(teamData) {
-    window.sessionStorage.setItem("Teams", JSON.stringify(teamData));
+    if(JSON.stringify(teamData) != undefined)
+        window.sessionStorage.setItem("Teams", JSON.stringify(teamData));
+    else
+        window.sessionStorage.setItem("Teams", "[]");
 }
 
 export function initConferences(confData) {
@@ -15,9 +47,9 @@ export function initRivarlies(rivData) {
 }
 
 export function getStoredData(dataType) {
-    if(dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
+    if (dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
         var data = window.sessionStorage.getItem(dataType);
-        if(data)
+        if (data != "undefined")
             return JSON.parse(window.sessionStorage.getItem(dataType));
         return [];
     } else {
@@ -26,7 +58,7 @@ export function getStoredData(dataType) {
 }
 
 export function storeData(dataType, data) {
-    if(dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
+    if (dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
         window.sessionStorage.setItem(dataType, JSON.stringify(data))
     }
 }
@@ -34,7 +66,7 @@ export function storeData(dataType, data) {
 export function getConferenceNames() {
     var conferenceData = getStoredData("Conferences");
     var nameArray = [];
-    for (var i=0; i < conferenceData.length; i++) {
+    for (var i = 0; i < conferenceData.length; i++) {
         nameArray.push(conferenceData[i].name);
     }
     return nameArray;
@@ -42,8 +74,8 @@ export function getConferenceNames() {
 
 export function getConferenceData(conferenceName) {
     var conferenceData = getStoredData("Conference");
-    for (var i=0; i<conferenceData.length; i++) {
-        if(conferenceData[i].name === conferenceName) {
+    for (var i = 0; i < conferenceData.length; i++) {
+        if (conferenceData[i].name === conferenceName) {
             return conferenceData[i];
         }
     }
@@ -52,11 +84,11 @@ export function getConferenceData(conferenceName) {
 
 export function getConferenceTeams(conferenceName) {
     var conferenceData = getConferenceData(conferenceName);
-    if(conferenceData === null) {
+    if (conferenceData === null) {
         return [];
     }
     var teamsOut = [];
-    for(var i = 0; i < conferenceData.divisions.length; i++) {
+    for (var i = 0; i < conferenceData.divisions.length; i++) {
         teamsOut.concat(conferenceData.divisions[i]);
     }
     return teamsOut;
@@ -64,7 +96,7 @@ export function getConferenceTeams(conferenceName) {
 
 export function getConferenceDivisons(conferenceName) {
     var conferenceData = getConferenceData(conferenceName)
-    if(conferenceData === null) {
+    if (conferenceData === null) {
         return [];
     }
     return conferenceData.divisions;
@@ -72,7 +104,7 @@ export function getConferenceDivisons(conferenceName) {
 
 export function getConferenceStats(conferenceName) {
     var conferenceData = getConferenceData(conferenceName);
-    if(conferenceData === null) {
+    if (conferenceData === null) {
         return {};
     }
     return {
@@ -91,7 +123,27 @@ export function getTeamByAbbrev(teamAbbrev) {
 
     while (middle >= start && middle <= end) {
         var check = teamAbbrev.localeCompare(teamData[middle].abbreviation);
-        if(check === 0) {
+        if (check === 0) {
+            return teamData[middle];
+        } else if (check < 0) {
+            start = middle + 1;
+        } else if (check > 0) {
+            end = middle - 1;
+        }
+        middle = (start + end) / 2;
+    }
+    return null;
+}
+
+export function getTeamByName(teamName) {
+    var teamData = getStoredData("Teams");
+    var start = 0;
+    var end = teamData.length - 1;
+    var middle = Math.floor((start + end) / 2);
+
+    while (middle >= start && middle <= end) {
+        var check = teamName.localeCompare(teamData[middle].name);
+        if (check === 0) {
             return teamData[middle];
         } else if (check < 0) {
             start = middle + 1;
@@ -106,10 +158,14 @@ export function getTeamByAbbrev(teamAbbrev) {
 export function getRivarliesByTeam(teamAbbrev) {
     var rivarlyData = getStoredData("rivarlies");
     var rivarlies = [];
-    for(var i = 0; i < rivarlyData.length; i++) {
-        if(rivarlyData[i].teamA === teamAbbrev || rivarlyData[i].teamB === teamAbbrev) {
+    for (var i = 0; i < rivarlyData.length; i++) {
+        if (rivarlyData[i].teamA === teamAbbrev || rivarlyData[i].teamB === teamAbbrev) {
             rivarlies.push(rivarlyData[i])
         }
     }
     return rivarlies;
+}
+
+export function moveTeam(teamName, origConference, newConference) {
+    var teamData = getTeamByName(teamName);
 }

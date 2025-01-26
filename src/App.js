@@ -7,7 +7,7 @@ import { Button, ButtonGroup } from '@mui/material';
 import ConferencesTable from './Components/Tables/ConferencesTable';
 import TeamTable from './Components/Tables/TeamTable';
 import RivarlyTable from './Components/Tables/RivarliesTable';
-import {getStoredData, initBowls, initConferences, initRivarlies, initTeams} from './localstorage'
+import { getStoredData, initBowls, initConferences, initRivarlies, initTeams } from './localstorage'
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Pages/Layout';
 import BowlGames from './Pages/BowlsGames';
@@ -55,7 +55,7 @@ function App() {
   useEffect(() => {
     if (fileContent !== '') {
       var leagueJSON = JSON.parse(fileContent);
-      setBowlGames(leagueJSON.bowlGames); 
+      setBowlGames(leagueJSON.bowlGames);
       initBowls(leagueJSON.bowlGames);
       setConferences(leagueJSON.conferences);
       initConferences(leagueJSON.conferences);
@@ -75,7 +75,7 @@ function App() {
       console.log(nameArray);
       initTeams(genteams);
       console.log(getStoredData("Teams"))
-      
+
     }
   }, [fileContent])
 
@@ -138,11 +138,13 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index  element={<UploadButton
-        fileType='.json'
-        label={"Upload Universe File"}
-        onChange={handleFileChange}
-      />}/>
+        <Route index element={<UploadButton
+          fileType='.json'
+          label={"Upload Universe File"}
+          onChange={handleFileChange}
+        />
+        }
+        />
         {/* <Route path='teams' element={ <TeamTable teams={teams}/> } /> */}
         <Route path='teams' element={<Teams />} />
         {/* <Route 

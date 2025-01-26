@@ -3,7 +3,7 @@ import NavBar from "../Components/NavBar";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-export default function Layout() {
+export default function Layout({selected}) {
     const navOptions = [
         {
             label: 'Home',
