@@ -10,7 +10,7 @@ import { loadData } from "../localstorage";
  * @returns 
  */
 export default function NavBar({ options }) {
-    const { pathName } = useLocation();
+    const { pathname } = useLocation();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState("")
     const handleFileChange = (event) => {
@@ -42,9 +42,27 @@ export default function NavBar({ options }) {
         >
             <List>
                 {options.map((option, i) => (
-                    <ListItem>
-                        <ListItemButton component={Link} to={option.path} selected={option.path === pathName}>
-                            <ListItemIcon>{option.icon}</ListItemIcon>
+                    <ListItem key={i}>
+                        <ListItemButton 
+                            component={Link} 
+                            to={option.path} 
+                            selected={option.path === pathname}
+                            sx={{
+                                "&.Mui-selected": {
+                                    backgroundColor: "#1976d2",
+                                    color: 'white'
+                                },
+                                "&.Mui-selected:hover": {
+                                    backgroundColor: "blue",
+
+                                },
+                            }}
+                        >
+                            <ListItemIcon
+                               sx={{color: option.path === pathname ? "white" : "black"}}
+                            >
+                                {option.icon}
+                            </ListItemIcon>
                             <ListItemText>{option.label}</ListItemText>
                         </ListItemButton>
                     </ListItem>
