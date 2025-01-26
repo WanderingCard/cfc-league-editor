@@ -26,7 +26,7 @@ function Row({ conference }) {
     const [open, setOpen] = React.useState(false);
     return (
         <React.Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} hover>
                 <TableCell>
                     <IconButton
                         aria-label={`Expand ${conference.name} row`}
@@ -115,9 +115,9 @@ function Row({ conference }) {
 export default function ConferencesTable({ conferences }) {
     return (
         <div>
-            <TableContainer sx={{ maxWidth: '80vw' }} component={Paper}>
+            <TableContainer sx={{ maxWidth: '100%' }} component={Paper}>
                 <Table stickyHeader>
-                    <TableHead sx={{ backgroundColor: 'lightgray' }}>
+                    <TableHead>
                         <TableCell></TableCell>
                         <TableCell>Conference</TableCell>
                         <TableCell>Prestige Level</TableCell>

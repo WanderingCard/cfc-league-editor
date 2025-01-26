@@ -50,7 +50,7 @@ export default function RivarlyTable({rivarlies, editSubmit, setRivarlies}) {
 
     return (
         <div>
-           <TableContainer sx={{ maxWidth: '80vw' }} component={Paper}>
+           <TableContainer sx={{ maxWidth: '100%' }} component={Paper}>
             <Table stickyHeader>
                     <TableHead sx={{ backgroundColor: 'lightgray' }}>
                         <TableCell>Team One</TableCell>
@@ -63,7 +63,7 @@ export default function RivarlyTable({rivarlies, editSubmit, setRivarlies}) {
                     <TableBody component={Paper} sx={{ height: '300sp', overflowY: 'scroll' }}>
                         {rivarlies.map((game, i) => {
                             return (
-                                <TableRow>
+                                <TableRow hover>
                                     <TableCell>{game.teamA}</TableCell>
                                     <TableCell>{game.teamB}</TableCell>
                                     <TableCell>{mapSlot(game.preferredSlot)}</TableCell>

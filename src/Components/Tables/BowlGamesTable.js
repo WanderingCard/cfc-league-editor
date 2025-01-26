@@ -65,7 +65,7 @@ export default function BowlGamesTable({ bowlGames, conferenceNames, editSubmit,
                                 }
                             }
                             return (
-                                <TableRow>
+                                <TableRow hover>
                                     <TableCell>{game.name}</TableCell>
                                     <TableCell>{game.zipcode}</TableCell>
                                     <TableCell><pre>{firstTieIn}</pre></TableCell>

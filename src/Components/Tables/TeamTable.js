@@ -8,7 +8,7 @@ function Row({ team, handleEditorClick }) {
     const [open, setOpen] = React.useState(false);
     return (
         <React.Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} hover>
                 <TableCell>
                     <IconButton
                         aria-label={`Expand ${team.name} row`}
@@ -51,8 +51,8 @@ function Row({ team, handleEditorClick }) {
                             <Typography variant='h6' gutterBottom component='div'>
                                 {`${team.name} School Attributes`}
                             </Typography>
-                            <Table size='small' aria-label={`${team.name} attribute table`}>
-                                <TableHead style={{ backgroundColor: 'lightgray' }}>
+                            <Table stickyHeader size='small' aria-label={`${team.name} attribute table`}>
+                                <TableHead style={{  }}>
                                     <TableRow>
                                         <TableCell>Attribute</TableCell>
                                         <TableCell>Value</TableCell>
@@ -120,7 +120,7 @@ export default function TeamTable({ teams }) {
 
     return (
         <div>
-            <TableContainer sx={{ maxWidth: '80vw', overflowX: 'scroll' }} component={Paper}>
+            <TableContainer sx={{ maxWidth: '100%', overflowX: 'scroll' }} component={Paper}>
                 <Table stickyHeader>
                     <TableHead sx={{ backgroundColor: 'lightgray'}}>
                         <TableCell style={{textAlign: 'center'}}></TableCell>

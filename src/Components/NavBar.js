@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import UploadButton from "./UploadButton";
 import { useState } from "react";
 import { loadData } from "../localstorage";
+import { useTheme } from "@emotion/react";
 
 /**
  * Allows the user to naviage between the various pages
@@ -10,6 +11,8 @@ import { loadData } from "../localstorage";
  * @returns 
  */
 export default function NavBar({ options }) {
+    // const isDarkTheme = useTheme().palette.mode === 'dark';
+    const isDarkTheme = false;
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState("")
@@ -59,7 +62,7 @@ export default function NavBar({ options }) {
                             }}
                         >
                             <ListItemIcon
-                               sx={{color: option.path === pathname ? "white" : "black"}}
+                               sx={{color: option.path === pathname ? "white" : isDarkTheme ? "white" : "gray"}}
                             >
                                 {option.icon}
                             </ListItemIcon>

@@ -3,7 +3,7 @@ import './App.css';
 import UploadButton from './Components/UploadButton';
 import { useEffect, useState } from 'react';
 import BowlGamesTable from './Components/Tables/BowlGamesTable';
-import { Button, ButtonGroup } from '@mui/material';
+import { Button, ButtonGroup, createTheme, ThemeProvider } from '@mui/material';
 import ConferencesTable from './Components/Tables/ConferencesTable';
 import TeamTable from './Components/Tables/TeamTable';
 import RivarlyTable from './Components/Tables/RivarliesTable';
@@ -135,19 +135,55 @@ function App() {
     }
   }
 
-  return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<UploadButton
-          fileType='.json'
-          label={"Upload Universe File"}
-          onChange={handleFileChange}
-        />
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    }
+  })
+
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light'
+    },
+    components: {
+      MuiTableCell: {
+        styleOverrides: {
+          head: {
+            backgroundColor: "lightgray"
+          },
         }
-        />
-        {/* <Route path='teams' element={ <TeamTable teams={teams}/> } /> */}
-        <Route path='teams' element={<Teams />} />
-        {/* <Route 
+      },
+      MuiTableRow: {
+        styleOverrides: {
+          hover: {
+            backgroundColor: "gray"
+          }
+        }
+      },
+      MuiTableHead: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "lightblue",
+          }
+        }
+      }
+    }
+  })
+
+  return (
+    <ThemeProvider theme={lightTheme}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<UploadButton
+            fileType='.json'
+            label={"Upload Universe File"}
+            onChange={handleFileChange}
+          />
+          }
+          />
+          {/* <Route path='teams' element={ <TeamTable teams={teams}/> } /> */}
+          <Route path='teams' element={<Teams />} />
+          {/* <Route 
           path='bowls' 
           element= { 
             <BowlGamesTable 
@@ -158,13 +194,14 @@ function App() {
             />
           } 
         /> */}
-        <Route path='bowls' element={<BowlGames />} />
-        {/* <Route path='conferences' element={ <ConferencesTable conferences={conferences} />} /> */}
-        <Route path='conferences' element={<Conferences />} />
-        {/* <Route path='rivarlies' element={ <RivarlyTable rivarlies={rivarlies} /> } /> */}
-        <Route path='rivarlies' element={<Rivarlies />} />
-      </Route>
-    </Routes>
+          <Route path='bowls' element={<BowlGames />} />
+          {/* <Route path='conferences' element={ <ConferencesTable conferences={conferences} />} /> */}
+          <Route path='conferences' element={<Conferences />} />
+          {/* <Route path='rivarlies' element={ <RivarlyTable rivarlies={rivarlies} /> } /> */}
+          <Route path='rivarlies' element={<Rivarlies />} />
+        </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
 
