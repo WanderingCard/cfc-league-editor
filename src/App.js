@@ -14,6 +14,7 @@ import BowlGames from './Pages/BowlsGames';
 import Teams from './Pages/Teams';
 import Conferences from './Pages/Conferences';
 import Rivarlies from './Pages/Rivarlies';
+import Awards from './Pages/Awards';
 
 function App() {
   const [fileContent, setFileContent] = useState('');
@@ -174,31 +175,21 @@ function App() {
     <ThemeProvider theme={lightTheme}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<UploadButton
-            fileType='.json'
-            label={"Upload Universe File"}
-            onChange={handleFileChange}
+          <Route
+            index
+            element={
+              <UploadButton
+                fileType='.json'
+                label={"Upload Universe File"}
+                onChange={handleFileChange}
+              />
+            }
           />
-          }
-          />
-          {/* <Route path='teams' element={ <TeamTable teams={teams}/> } /> */}
           <Route path='teams' element={<Teams />} />
-          {/* <Route 
-          path='bowls' 
-          element= { 
-            <BowlGamesTable 
-              bowlGames={bowlGames}
-              setBowlGames={setBowlGames}
-              conferenceNames={conferenceNames}
-              editSubmit={editBowlGame} 
-            />
-          } 
-        /> */}
           <Route path='bowls' element={<BowlGames />} />
-          {/* <Route path='conferences' element={ <ConferencesTable conferences={conferences} />} /> */}
           <Route path='conferences' element={<Conferences />} />
-          {/* <Route path='rivarlies' element={ <RivarlyTable rivarlies={rivarlies} /> } /> */}
           <Route path='rivarlies' element={<Rivarlies />} />
+          <Route path='awards' element={<Awards />} />
         </Route>
       </Routes>
     </ThemeProvider>

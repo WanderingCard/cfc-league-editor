@@ -17,7 +17,7 @@ export function generateLeagueFile(name, startYear, message) {
 }
 
 export function generateUniverseZip(name, startYear, message) {
-    
+
 }
 
 export function loadData(fileContent) {
@@ -78,6 +78,8 @@ export function getStoredData(dataType) {
         var data = window.sessionStorage.getItem(dataType);
         if (data != null)
             return JSON.parse(window.sessionStorage.getItem(dataType));
+        if(dataType === "Awards")
+            return {};
         return [];
     } else {
         return [];

@@ -29,6 +29,11 @@ export default function Layout({selected}) {
             label: 'Rivarlies',
             path: '/rivarlies',
             icon: <Bolt />
+        },
+        {
+            label: 'Awards',
+            path: '/awards',
+            icon: <EmojiEvents />
         }
     ]
     

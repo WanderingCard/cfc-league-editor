@@ -5,6 +5,8 @@ import { generateLeagueFile } from "../localstorage";
 
 
 export default function DownloadFileButton() {
+    // TODO: Allow User to Enter Starting Year, Universe Name, Message
+
     function handleDownload() {
         // Get JSON and make a blob
 

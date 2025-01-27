@@ -23,6 +23,9 @@ export default function UploadButton({fileType, onChange, label}) {
       variant="contained"
       tabIndex={-1}
       startIcon={<CloudUploadIcon />}
+      sx={{
+        width:'100%'
+      }}
     >
       {label}
       <VisuallyHiddenInput
