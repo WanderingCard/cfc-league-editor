@@ -1,9 +1,32 @@
+import JSZip from "jszip";
+
+export function generateLeagueFile(name, startYear, message) {
+    const data = {
+        name: name,
+        startingYear: startYear,
+        startingMessage: message,
+        bowlGames: getStoredData("Bowls"),
+        conferences: getStoredData("Conferences"),
+        oocRivalries: getStoredData("Rivarlies"),
+        leagueAwardNames: getStoredData("Awards")
+    }
+
+    // Add additional code to append coaches and rosters if defined in data set
+
+    return JSON.stringify(data, null, 2);
+}
+
+export function generateUniverseZip(name, startYear, message) {
+    
+}
+
 export function loadData(fileContent) {
     var leagueJSON = JSON.parse(fileContent);
 
     initBowls(leagueJSON.bowlGames);
     initConferences(leagueJSON.conferences);
     initRivarlies(leagueJSON.oocRivalries);
+    initAwards(leagueJSON.leagueAwardNames);
 
     var genTeams = [];
     for (var i = 0; i < leagueJSON.conferences.length; i++) {
@@ -46,10 +69,14 @@ export function initRivarlies(rivData) {
     window.sessionStorage.setItem("Rivarlies", JSON.stringify(rivData));
 }
 
+export function initAwards(awardData) {
+    window.sessionStorage.setItem("Awards", JSON.stringify(awardData));
+}
+
 export function getStoredData(dataType) {
-    if (dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
+    if (dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies" || dataType === "Awards") {
         var data = window.sessionStorage.getItem(dataType);
-        if (data != "undefined")
+        if (data != null)
             return JSON.parse(window.sessionStorage.getItem(dataType));
         return [];
     } else {
@@ -58,7 +85,7 @@ export function getStoredData(dataType) {
 }
 
 export function storeData(dataType, data) {
-    if (dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies") {
+    if (dataType === "Teams" || dataType === "Conferences" || dataType === "Bowls" || dataType === "Rivarlies" || dataType === "Awards") {
         window.sessionStorage.setItem(dataType, JSON.stringify(data))
     }
 }

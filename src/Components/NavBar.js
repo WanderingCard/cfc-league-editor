@@ -4,6 +4,7 @@ import UploadButton from "./UploadButton";
 import { useState } from "react";
 import { loadData } from "../localstorage";
 import { useTheme } from "@emotion/react";
+import DownloadFileButton from "./DownloadFileButton";
 
 /**
  * Allows the user to naviage between the various pages
@@ -77,6 +78,9 @@ export default function NavBar({ options }) {
                         label={"Upload Universe File"}
                         onChange={handleFileChange}
                     />
+                </ListItem>
+                <ListItem>
+                    <DownloadFileButton />
                 </ListItem>
             </List>
         </Drawer>
