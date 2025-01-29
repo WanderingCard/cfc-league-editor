@@ -4,6 +4,11 @@ import * as React from 'react';
 import TeamEditor from '../Editors/TeamEditor';
 import ColorLabel from '../Display/ColorLabel';
 
+function teamLevels(team) {
+    const attributes = team.attributes;
+    return attributes.facilities + attributes.stadium + attributes.collegeLife + attributes.academics + attributes.marketing;
+}
+
 function Row({ team, handleEditorClick }) {
     const [open, setOpen] = React.useState(false);
     return (
@@ -29,7 +34,7 @@ function Row({ team, handleEditorClick }) {
                 </TableCell>
                 <TableCell>{team.zipcode}</TableCell>
                 <TableCell>{team.attributes.prestige}</TableCell>
-                <TableCell>{team.attributes.totalLevels}</TableCell>
+                <TableCell>{teamLevels(team)}</TableCell>
                 <TableCell>{team.rivalAbbreviation}</TableCell>
                 <TableCell>
                     <IconButton
